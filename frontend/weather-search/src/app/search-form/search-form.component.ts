@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
+import { StatesService } from '../states.service';
 const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
-
+type State = Array<{
+  fullName: string;
+  abbreviation: string;
+}>;
 @Component({
   selector: 'search-form',
   templateUrl: './search-form.component.html',
@@ -13,13 +17,13 @@ export class SearchFormComponent implements OnInit {
   isAutoDetected = false;
   disableStreet = false;
   stateSelection =""; 
-  constructor(private fb: FormBuilder) { 
-  
+  states!: State;
+  constructor(private fb: FormBuilder, private _stateService: StatesService) { 
     
     this.searchForm = this.fb.group({
       inputStreet: [{value:'', disabled: false}, Validators.required],
       inputCity: [{value:'', disabled: false}, Validators.required ],
-      inputState: [{value:'', disabled: false}, Validators.required ],
+      inputState: [{value:'',disabled: false}, Validators.required ],
       inputCurrent:['']
    });
   
@@ -32,6 +36,7 @@ export class SearchFormComponent implements OnInit {
     };
   }
   ngOnInit(): void {
+    this.states = this._stateService.getStates();
     
     
   }

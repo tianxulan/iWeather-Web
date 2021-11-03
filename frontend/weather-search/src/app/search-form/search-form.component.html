@@ -34,8 +34,8 @@
                 <label for="inputState" class="col-sm-3 col-form-label">State</label>
                 <div class="col-sm-4">
                     <select type="" class="form-control" id="inputState" formControlName="inputState" [value]="stateSelection">
-                        <option value="" selected disabled>Select your state</option>
-                        <option value="volvo">Volvo</option>
+                        <option  selecte value="">Select your state</option>
+                        <option [value]="state.abbreviation" *ngFor="let state of states">{{state.fullName}}</option>
                     </select>
                 </div>
            
