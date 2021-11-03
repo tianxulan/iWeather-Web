@@ -4,17 +4,30 @@
         <div id="weather-search-title" class = "d-flex justify-content-center ">
             <h5>Weather Search 🌤</h5>
         </div>
-        <form class = "d-grid gap-3">
+        <form class = "d-grid gap-3 needs-validation" [formGroup]="searchForm" novalidate>   
             <div class="form-group row required">
               <label for="inputStreet" class="col-sm-3 col-form-label">Street</label>
               <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputStreet" >
+                    <input type="text" class="form-control" id="inputStreet" formControlName="inputStreet" [pattern]="spaceOnlyPattern" >
+                    <div *ngIf="searchForm.controls['inputStreet'].invalid && (searchForm.controls['inputStreet'].dirty || searchForm.controls['inputStreet'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="searchForm.controls['inputStreet'].errors">
+                            Please enter a valid street.
+                        </div>
+                    </div>
+                    
               </div>
             </div>
-            <div class="form-group row required">
+            <div class="form-group row ">
                 <label for="inputCity" class="col-sm-3 col-form-label">City</label>
                 <div class="col-sm-9">
-                      <input type="text" class="form-control" id="inputCity">
+                     <input type="text" class="form-control" id="inputCity" formControlName="inputCity"_  >
+                     <div *ngIf="searchForm.controls['inputCity'].invalid && (searchForm.controls['inputCity'].dirty || searchForm.controls['inputCity'].touched)"
+                         class="alert alert-danger">
+                         <div *ngIf="searchForm.controls['inputCity'].errors">
+                             Please enter a valid city.
+                         </div>
+                     </div>
                 </div>
             </div>
             <div class="form-group row">
@@ -42,7 +55,7 @@
             <div class="container">
                 <div class="form-group row justify-content-start">
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i>Search</button>
+                        <button type="submit" class="btn btn-primary" id="inputSubmit" formControlName="inputSubmit"><i class="bi bi-search"></i>Search</button>
                     </div>
                     <div class="col-4" id="clear-button">
                         <button type="reset" class="btn btn-primary text-black bg-white" ><i class="bi bi-list-nested"></i>Clear</button>
