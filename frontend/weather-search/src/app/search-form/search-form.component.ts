@@ -10,13 +10,17 @@ const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
 export class SearchFormComponent implements OnInit {
   searchForm!: FormGroup;
   spaceOnlyPattern = ".*[^ ].*";
+  isAutoDetected = false;
+  disableStreet = false;
+  stateSelection =""; 
   constructor(private fb: FormBuilder) { 
-    
+  
     
     this.searchForm = this.fb.group({
-      inputStreet: ['',Validators.required],
-      inputCity: ['', Validators.required ],
-      inputSubmit:[{value:'',disabled:true}]
+      inputStreet: [{value:'', disabled: false}, Validators.required],
+      inputCity: [{value:'', disabled: false}, Validators.required ],
+      inputState: [{value:'', disabled: false}, Validators.required ],
+      inputCurrent:['']
    });
   
   }
@@ -30,6 +34,21 @@ export class SearchFormComponent implements OnInit {
   ngOnInit(): void {
     
     
+  }
+  autoDetectOnCheck()
+  {
+    if(this.isAutoDetected){
+      this.searchForm.controls["inputStreet"].enable();
+      this.searchForm.controls["inputCity"].enable();
+      this.searchForm.controls["inputState"].enable();
+    }
+    else
+    {
+      this.searchForm.controls["inputStreet"].disable();
+      this.searchForm.controls["inputCity"].disable();
+      this.searchForm.controls["inputState"].disable();
+    }
+    this.isAutoDetected = !this.isAutoDetected;
   }
 
 }

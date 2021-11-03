@@ -36,9 +36,14 @@
     color:red;
     border-color: transparent;
 }
-.form-control.ng-touched.ng-invalid {
+#inputStreet.ng-touched.ng-invalid 
+{
     border-color: red;
-  }
+}
+#inputCity.ng-touched.ng-invalid 
+{
+    border-color: red;
+}
 
 @media (max-width:575.98px) 
 {
