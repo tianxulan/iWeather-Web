@@ -15,8 +15,8 @@ export class SearchFormComponent implements OnInit {
     
     this.searchForm = this.fb.group({
       inputStreet: ['',Validators.required],
-      inputCity: ['', Validators.required ]
-      inputSubmit:['']
+      inputCity: ['', Validators.required ],
+      inputSubmit:[{value:'',disabled:true}]
    });
   
   }
