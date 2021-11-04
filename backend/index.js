@@ -36,7 +36,8 @@ app.get('/search', (req, res) => {
     fetch(url_to_tomorrowio)
     .then(res => res.json())
     .then(data => {
-        res.send({ data });
+        data["status"] = "200";
+        res.send(data);
     })
     .catch(err => {
         res.send(err);

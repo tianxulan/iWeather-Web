@@ -4,7 +4,7 @@
         <div id="weather-search-title" class = "d-flex justify-content-center ">
             <h5>Weather Search 🌤</h5>
         </div>
-        <form class = "d-grid gap-3 needs-validation" [formGroup]="searchForm" novalidate>   
+        <form class = "d-grid gap-3 needs-validation" [formGroup]="searchForm" (ngSubmit)="onSubmit()" novalidate>   
             <div class="form-group row required">
               <label for="inputStreet" class="col-sm-3 col-form-label">Street</label>
               <div class="col-sm-9">

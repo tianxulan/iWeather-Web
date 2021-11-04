@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StatesService } from './states.service';
 import { HttpClientModule} from '@angular/common/http';
+import { IpInfoService } from './ip-info.service';
+import { GeocodingService } from './geocoding.service';
+import { IWeatherService } from './i-weather.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,7 @@ import { HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [StatesService],
+  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
