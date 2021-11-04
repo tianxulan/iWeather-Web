@@ -77,13 +77,17 @@ export class SearchFormComponent implements OnInit {
   ngOnInit(): void {
     this._stateService.getStates().subscribe((data: any[]) => { this.states=data});
     this._ipInfoService.getIpInfo().subscribe((data:any) => { this.ipInformation=data});
-    this._autoCompleteService.getAutoComplete("new").subscribe((data:any) => {
-      this.autoCompleteInformation=data;
-      if (data.status == "OK"){
-        console.log(data);
-      }
-    });
     
+    
+  }
+
+  // on user change input on city text field
+  cityOnChange()
+  {
+    // this._autoCompleteService.getAutoComplete(keyword).subscribe((data:any) => {
+    //   this.autoCompleteInformation=data;
+      
+    // });
   }
   // On user check auto-detect or unchecked auto-detct
   autoDetectOnCheck()

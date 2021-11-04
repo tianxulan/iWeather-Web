@@ -10,14 +10,13 @@ import { SearchFormComponent } from './search-form/search-form.component';
 })
 export class AutoCompleteService {
   private autoCompleteServiceURL: string ="";
-  private urlHead =  "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=";
-  private urlEnd = "&types=(cities)&language=en&components=country:us&key="+environment.googleApiKey;
+  private urlHead =  environment.apiUrl + "/autoComplete?keyword="
 
   constructor(private http:HttpClient) { }
 
   getAutoComplete(keyword: string)
   {
-    this.autoCompleteServiceURL = this.urlHead + keyword + this.urlEnd;
+    this.autoCompleteServiceURL = this.urlHead + keyword;
     return this.http.get(this.autoCompleteServiceURL);
   }
 }
