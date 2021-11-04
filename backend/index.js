@@ -1,10 +1,15 @@
 // Dependence
 const express = require('express')
 const app = express()
+const cors = require('cors');
 const PORT = process.env.PORT || 1964;
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 var runLocal = true;
 
+// Enable CORS
+app.use(cors({
+    origin: '*'
+}));
 // App Routing 
 // Serve search for weather
 app.get('/search', (req, res) => {
