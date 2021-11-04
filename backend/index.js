@@ -10,7 +10,38 @@ var runLocal = true;
 app.use(cors({
     origin: '*'
 }));
+// Serve Homepage
+app.get('/', function(req, res)
+{
+    res.sendFile("index.html", { root: __dirname + "/public"});
+});
+// Serve staic file
+app.use(express.static('public'));
+
+
 // App Routing 
+
+// Serve autoComplete for city suggestion in frontend
+app.get('/autoComplete', (req,res)=> {
+    let keyword = req.query.keyword;
+    let urlToAutoComplete = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${keyword}&types=(cities)&language=en&components=country:us&key=AIzaSyBy8dLihEmKyaXkWKyn5DGUz1tNMC-8Dp8`
+    fetch(urlToAutoComplete)
+    .then(res => res.json())
+    .then(data => {
+        var resultsArray = [];
+        for(let i=0; i<data.predictions.length;i++)
+        {
+            resultsArray.push({
+                'description': data.predictions[i].description,
+                'name':data.predictions[i].structured_formatting.main_text
+            });
+        }
+        res.send(resultsArray);
+    })
+    .catch(err => {
+        res.send(err);
+    });
+});
 // Serve search for weather
 app.get('/search', (req, res) => {
     let latitude = req.query.latitude;
@@ -42,15 +73,9 @@ app.get('/search', (req, res) => {
     .catch(err => {
         res.send(err);
     });
-})
-
-// Serve Homepage
-app.get('/', function(req, res)
-{
-    res.sendFile("index.html", { root: __dirname + "/public"});
 });
-// Serve staic file
-app.use(express.static('public'));
+
+
 
 //Listen on port
 app.listen(PORT, () =>
