@@ -10,6 +10,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { IpInfoService } from './ip-info.service';
 import { GeocodingService } from './geocoding.service';
 import { IWeatherService } from './i-weather.service';
+import { AutoCompleteService } from './auto-complete.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,7 @@ import { IWeatherService } from './i-weather.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService],
+  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

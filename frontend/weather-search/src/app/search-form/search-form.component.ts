@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { AutoCompleteService } from '../auto-complete.service';
 import { Geocoding } from '../geocoding';
 import { GeocodingService } from '../geocoding.service';
 import { IWeatherService } from '../i-weather.service';
@@ -40,6 +41,10 @@ export class SearchFormComponent implements OnInit {
     results:[],
     status:""
   };
+  autoCompleteInformation:Geocoding ={
+    results:[],
+    status:""
+  }
   daily: IWeather={
     data:{}
   };
@@ -51,7 +56,7 @@ export class SearchFormComponent implements OnInit {
   latitude: string = "";
   longitude: string = "";
   addressFromGeocoding:string = "";
-  constructor(private fb: FormBuilder, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService) { 
+  constructor(private fb: FormBuilder, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService) { 
     
     this.searchForm = this.fb.group({
       inputStreet: [{value:'', disabled: false}, Validators.required],
@@ -72,7 +77,12 @@ export class SearchFormComponent implements OnInit {
   ngOnInit(): void {
     this._stateService.getStates().subscribe((data: any[]) => { this.states=data});
     this._ipInfoService.getIpInfo().subscribe((data:any) => { this.ipInformation=data});
-
+    this._autoCompleteService.getAutoComplete("new").subscribe((data:any) => {
+      this.autoCompleteInformation=data;
+      if (data.status == "OK"){
+        console.log(data);
+      }
+    });
     
   }
   // On user check auto-detect or unchecked auto-detct
