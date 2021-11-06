@@ -1,0 +1,36 @@
+@media (min-width:576px) 
+{
+    #resultHomeWindow
+    {
+      width: 65%;
+    }
+    #star
+    {
+       
+        padding: 0px,0px,0px,0px;
+    }
+    #detailButton
+    {
+        padding: 0px,0px,0px,0px; 
+    }
+    
+    
+}
+
+
+@media (max-width:575.98px) 
+{
+    #resultHomeWindow
+{
+    width: 100%;
+}
+    #star
+    {
+       
+        padding: 0px,0px,0px,0px;
+    }
+    #detailButton
+    {
+        padding: 0px,0px,0px,0px; 
+    }
+} 

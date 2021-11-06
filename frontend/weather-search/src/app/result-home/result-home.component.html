@@ -1,0 +1,31 @@
+<div class="container mt-5 " id="resultHomeWindow">
+    <div class="row">
+        <h3 class="text-center">Forecast at {{city}}, {{state}}</h3>
+    </div>
+    <div class="row justify-content-end " id="buttons">
+
+        <div  id= "stardiv" class="col-1  col-lg-1 d-lg-flex justify-content-end " >
+            <button   class="btn btn-sm text-black bg-white ml-lg-20 px-0 " > 
+                <i id="star" class="bi  border border-secondary " [class.bi-star] = "isBiStar" [class.bi-star-fill] = "isBiStarFill" (click) = "starOnClick()" style="font-size: 1.5em;" [style.color] = "isFavorite ? 'yellow': 'black'"></i>
+                </button>
+        </div>  
+        
+            <div class ="col-3 col-lg-1 d-flex justify-content-start">
+            <button id="detailButton"  class="btn btn-sm text-black bg-white border border-white" ><small>Details</small> <i class="bi bi-chevron-right" style="font-size: 0.8rem;"></i></button>
+        </div>
+    </div>
+    <div class="row ">
+        <ul class="nav nav-tabs d-flex justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active current" routerLink="dayView" aria-current="page">Day View</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active current" routerLink="dailyTemp">Daily Temp. Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active current" routerLink="meteogram">Meteogram</a>
+            </li>
+          </ul>
+    </div>
+</div>
+<router-outlet></router-outlet>

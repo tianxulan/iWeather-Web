@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, debounceTime, map, retry, startWith } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { AutoCompleteService } from '../auto-complete.service';
+import { AutoCompletePair } from '../autoCompletePair';
 import { Geocoding } from '../geocoding';
 import { GeocodingService } from '../geocoding.service';
 import { IWeatherService } from '../i-weather.service';
@@ -23,6 +25,12 @@ export class SearchFormComponent implements OnInit {
   isAutoDetected = false;
   disableStreet = false;
   stateSelection ="";
+
+  //for city control
+  numberOfCityChanges: number = 0;
+  myControl = new FormControl();
+  options: AutoCompletePair[] = [];
+  filteredOptions: Observable<AutoCompletePair[]>;
 
   //varibale for services
   states: State[]= [];
@@ -77,17 +85,35 @@ export class SearchFormComponent implements OnInit {
   ngOnInit(): void {
     this._stateService.getStates().subscribe((data: any[]) => { this.states=data});
     this._ipInfoService.getIpInfo().subscribe((data:any) => { this.ipInformation=data});
+    this.filteredOptions = this.searchForm.controls["inputCity"].valueChanges.pipe(
+      startWith(''),
+      map(option => (option ? this._filter(option) : this.options.slice())),
+    );
     
-    
+  }
+
+  //fliter for auto complete
+  private _filter(value: string): AutoCompletePair[] {
+    const filterValue = value.toLowerCase();
+    this._autoCompleteService.getAutoComplete(this.searchForm.controls["inputCity"].value).subscribe((data:any) => {
+      debounceTime(environment.autoCompleteDelayTime);
+        this.options  = data;
+        
+      
+    });
+    if (this.searchForm.controls["inputCity"].value == "")
+    {
+      this.options = [];
+    }
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   // on user change input on city text field
   cityOnChange()
   {
-    // this._autoCompleteService.getAutoComplete(keyword).subscribe((data:any) => {
-    //   this.autoCompleteInformation=data;
-      
-    // });
+    this.numberOfCityChanges++;
+    console.log("change on city input detected :" + this.numberOfCityChanges);
+    
   }
   // On user check auto-detect or unchecked auto-detct
   autoDetectOnCheck()

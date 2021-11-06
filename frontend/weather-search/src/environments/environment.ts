@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   apiUrl:"http://localhost:1964",
   queryExample:true,
-  googleApiKey: "AIzaSyBy8dLihEmKyaXkWKyn5DGUz1tNMC-8Dp8"
+  googleApiKey: "AIzaSyBy8dLihEmKyaXkWKyn5DGUz1tNMC-8Dp8",
+  autoCompleteDelayTime:100,
 };
 
 /*

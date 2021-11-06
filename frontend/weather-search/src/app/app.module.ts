@@ -11,17 +11,69 @@ import { IpInfoService } from './ip-info.service';
 import { GeocodingService } from './geocoding.service';
 import { IWeatherService } from './i-weather.service';
 import { AutoCompleteService } from './auto-complete.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
+import {  MatInputModule } from '@angular/material/input';
+import { RfNavComponent } from './rf-nav/rf-nav.component';
+import { ResultHomeComponent } from './result-home/result-home.component';
+import { ResultDayComponent } from './result-day/result-day.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { RouterModule, Routes } from '@angular/router';
+import { DayViewComponent } from './day-view/day-view.component';
+import { DailyTempComponent } from './daily-temp/daily-temp.component';
+import { MeteogramComponent } from './meteogram/meteogram.component';
+const routes: Routes = 
+[
+  {
+    path: 'resultHome',
+    component: ResultHomeComponent,
+    children:[
+      {
+        path:'dayView', component:DayViewComponent
+      },
+      {
+        path:'dailyTemp', component:DailyTempComponent
+      },
+      {
+        path:'meteogram', component:MeteogramComponent
+      }
+    ]
+  },
+  {
+    path: 'resultDay/:date',
+    component: ResultDayComponent
+  }, 
+  {
+    path: 'favorites',
+    component: FavoritesComponent
+  },
+]
+
 @NgModule({
   declarations: [
     AppComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    RfNavComponent,
+    ResultHomeComponent,
+    ResultDayComponent,
+    FavoritesComponent,
+    DayViewComponent,
+    DailyTempComponent,
+    MeteogramComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService],
   bootstrap: [AppComponent]

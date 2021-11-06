@@ -16,7 +16,16 @@ export class AutoCompleteService {
 
   getAutoComplete(keyword: string)
   {
-    this.autoCompleteServiceURL = this.urlHead + keyword;
+    if (environment.queryExample)
+    {
+      this.autoCompleteServiceURL = environment.apiUrl +"/autoCompleteExample.json";
+    
+    }
+    else
+    {
+      this.autoCompleteServiceURL = this.urlHead + keyword;
+    }
+    
     return this.http.get(this.autoCompleteServiceURL);
   }
 }
