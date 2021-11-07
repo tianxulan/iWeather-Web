@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HourlyDataTransferService } from '../hourly-data-transfer.service';
 
 @Component({
   selector: 'app-meteogram',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./meteogram.component.css']
 })
 export class MeteogramComponent implements OnInit {
-
-  constructor() { }
+  hourly: any=null;
+  
+  constructor(private _hourlyDataTransferService: HourlyDataTransferService) { }
 
   ngOnInit(): void {
+    this._hourlyDataTransferService.currentHourlyData.subscribe(hourly=> {
+      this.hourly = hourly;
+  });
   }
 
 }

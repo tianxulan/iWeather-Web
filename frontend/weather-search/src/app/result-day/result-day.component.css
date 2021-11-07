@@ -1,0 +1,17 @@
+@media (min-width:576px) 
+{
+    #resultDayWindow
+    {
+        width: 65%;
+
+    }
+
+}
+@media (max-width:575.8px) 
+{
+    #resultDayWindow
+    {
+        width: 100%;
+    }
+
+}

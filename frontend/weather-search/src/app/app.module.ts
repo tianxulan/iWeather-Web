@@ -23,6 +23,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { DayViewComponent } from './day-view/day-view.component';
 import { DailyTempComponent } from './daily-temp/daily-temp.component';
 import { MeteogramComponent } from './meteogram/meteogram.component';
+import { AddressTransferService } from './address-transfer.service';
+import { DailyDataTransferService } from './daily-data-transfer.service';
+import { HourlyDataTransferService } from './hourly-data-transfer.service';
 const routes: Routes = 
 [
   {
@@ -41,7 +44,7 @@ const routes: Routes =
     ]
   },
   {
-    path: 'resultDay/:date',
+    path: 'resultDay/:dayIndex',
     component: ResultDayComponent
   }, 
   {
@@ -75,7 +78,7 @@ const routes: Routes =
     MatInputModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService],
+  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

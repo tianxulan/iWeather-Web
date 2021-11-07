@@ -2,8 +2,16 @@
 {
     #dayViewTable
     {
-        width: 66%;
+        width: 65%;
 
+    }
+
+}
+@media (max-width:575.8px) 
+{
+    #dayViewTable
+    {
+        width: 100%;
     }
 
 }

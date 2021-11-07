@@ -3,13 +3,17 @@ import { FormControl, FormGroup, Validators, FormBuilder, ValidatorFn, AbstractC
 import { Observable, throwError } from 'rxjs';
 import { catchError, debounceTime, map, retry, startWith } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AddressTransferService } from '../address-transfer.service';
 import { AutoCompleteService } from '../auto-complete.service';
 import { AutoCompletePair } from '../autoCompletePair';
+import { DailyDataTransferService } from '../daily-data-transfer.service';
 import { Geocoding } from '../geocoding';
 import { GeocodingService } from '../geocoding.service';
+import { HourlyDataTransferService } from '../hourly-data-transfer.service';
 import { IWeatherService } from '../i-weather.service';
 import { IpInfoService } from '../ip-info.service';
 import { IWeather } from '../iWeather';
+import { ResultAddress } from '../resultAddress';
 import { State } from '../states';
 import { StatesService } from '../states.service';
 import { IpInfo } from './ip-info';
@@ -53,18 +57,17 @@ export class SearchFormComponent implements OnInit {
     results:[],
     status:""
   }
-  daily: IWeather={
-    data:{}
-  };
-  hourly: IWeather={
-    data:[]
-  };
+  daily:any = null; 
+  hourly:any = null;
+
+  //variable to share with other components
+  address: string = "";
 
   //variablie getting from other services
   latitude: string = "";
   longitude: string = "";
   addressFromGeocoding:string = "";
-  constructor(private fb: FormBuilder, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService) { 
+  constructor(private fb: FormBuilder, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService, private _addressTransferService: AddressTransferService, private _dailyDataTransferService: DailyDataTransferService, private _hourlyDataTransferService: HourlyDataTransferService) { 
     
     this.searchForm = this.fb.group({
       inputStreet: [{value:'', disabled: false}, Validators.required],
@@ -89,6 +92,18 @@ export class SearchFormComponent implements OnInit {
       startWith(''),
       map(option => (option ? this._filter(option) : this.options.slice())),
     );
+    
+    // Transfer Service
+    this._addressTransferService.currentAddress.subscribe(address => {
+        this.address = address;
+    });
+
+    this._dailyDataTransferService.currentDailyData.subscribe(daily => {
+      this.daily = daily;
+    });
+    this._hourlyDataTransferService.currentHourlyData.subscribe(hourly => {
+      this.hourly = hourly;
+    });
     
   }
 
@@ -137,14 +152,28 @@ export class SearchFormComponent implements OnInit {
   {
     if(this.isAutoDetected)
     {
+      // send address from IPInfo to resultHome
+      this.address =  this.ipInformation.city +  ", " + this.ipInformation.region;
+      this._addressTransferService.changeAddress(this.address);
+
       // send loc and lat getting from IpInfo to your node server
       // parse information getting from ipinfo
       var auto_detect_arr = this.ipInformation.loc.split(",");
       this.latitude =auto_detect_arr[0]; 
       this.longitude = auto_detect_arr[1];
+      
+      
+
       //send to node backend
-      // this._iWeatherService.getIWeather(this.latitude,this.longitude,"daily").subscribe((data: any) => { this.daily;});
-      // this._iWeatherService.getIWeather(this.latitude,this.longitude,"hourly").subscribe((data: any) => { this.hourly;});
+       this._iWeatherService.getIWeather(this.latitude,this.longitude,"daily").subscribe((data: any) => { 
+         this.daily = data; 
+         this._dailyDataTransferService.changeDailyData(this.daily);      //send to resultHome through Data TransferSerivce
+        });
+
+      
+      this._iWeatherService.getIWeather(this.latitude,this.longitude,"hourly").subscribe((data: any) => { this.hourly;});
+
+      
     }
     else
     {
@@ -156,14 +185,14 @@ export class SearchFormComponent implements OnInit {
       this._geocodingService.getGeocoding(street,city,state).subscribe((data: any) => {
          this.geocodingInformation=data; 
          // parse results from geocoding
-         
          if (data.status == "OK"){
             this.latitude = data.results[0].geometry.location.lat; 
             this.longitude = data.results[0].geometry.location.lng; 
-            this.addressFromGeocoding = data.results[0].formatted_address;
+            this.address = data.results[0].formatted_address;
+            this._addressTransferService.changeAddress(this.address);
+            
             this._iWeatherService.getIWeather(this.latitude,this.longitude,"daily").subscribe((data: any) => {
                 this.daily =data;
-               
                 // !!!! WARNING this is a race Condtion, there is no gurantee data.data will always fine
                 // code to process data (Should emit event and send to results component)
                 if(data.status == "200")
@@ -171,26 +200,17 @@ export class SearchFormComponent implements OnInit {
                   console.log("Daily data received from backend:");
                   console.log(data.data.timelines[0]);
                 }
-                
-               
-                 
-               
               } );
             this._iWeatherService.getIWeather(this.latitude,this.longitude,"hourly").subscribe((data: any) => { 
               this.hourly = data;
-
               // !!!! WARNING this is a race Condtion, there is no gurantee data.data will always be fine
               // code to process data (Should emit event and send to results component)
               if(data.status == "200")
               {
                 console.log("Hourly data received from backend:");
                 console.log(data.data.timelines[0]);
-
               }
-              
             });
-            
-            
          }
          else
          {

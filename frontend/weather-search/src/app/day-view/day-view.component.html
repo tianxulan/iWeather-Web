@@ -10,5 +10,15 @@
             <th scope="col">Wind Speed(mph)<th>
           </tr>
         </thead>
+        <tbody>
+          <tr *ngFor="let interval of intervals;let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td routerLinkActive="active current" [routerLink]="'/resultDay/' + i"> <u class="text-primary">{{interval.startTime | date:'EEEE, dd MMM y'}}</u></td>
+            <td> <img width="30px" height="30px" [src]=" '../../assets/weatherCodes/' + weatherCodeToImagePath(interval.values.weatherCode)"> {{weatherCodeToDescript(interval.values.weatherCode)}}</td>
+            <td>{{interval.values.temperatureMax}}</td>
+            <td>{{interval.values.temperatureMin}}</td>
+            <td>{{interval.values.windSpeed}}</td>
+          </tr>
+        </tbody>
     </table>
 </div>

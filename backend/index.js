@@ -54,7 +54,7 @@ app.get('/search', (req, res) => {
     }
     else if (type == "daily")
     {
-        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=weatherCode,temperatureMax,temperatureMin,precipitationType,precipitationProbability,windSpeed,humidity,visibility,sunriseTime,sunsetTime&timesteps=1d&units=imperial&timezone=America/Los_Angeles&apikey=ZdwyJ8FAyqyCIJgQijJoauA2IQZWlcw5`
+        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=weatherCode,temperatureMax,temperatureMin,precipitationType,precipitationProbability,windSpeed,cloudCover,temperatureApparent,humidity,visibility,sunriseTime,sunsetTime&timesteps=1d&units=imperial&timezone=America/Los_Angeles&apikey=ZdwyJ8FAyqyCIJgQijJoauA2IQZWlcw5`
     }
     else if (type == "hourly")
     {

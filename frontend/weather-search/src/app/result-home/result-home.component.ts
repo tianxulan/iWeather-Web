@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AddressTransferService } from '../address-transfer.service';
+import { DailyDataTransferService } from '../daily-data-transfer.service';
 
 @Component({
   selector: 'app-result-home',
@@ -6,14 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./result-home.component.css']
 })
 export class ResultHomeComponent implements OnInit {
-  city: string = "";
-  state:string = "";
+  address: string = "";
   isBiStar = true;
   isBiStarFill = false;
   isFavorite = false;
-  constructor() { }
+  daily: any = null;
+  constructor(private _addressTransferService: AddressTransferService ) {}
+  
 
   ngOnInit(): void {
+    this._addressTransferService.currentAddress.subscribe(address => {
+        this.address = address;
+    });
+    
   }
   starOnClick()
   {
