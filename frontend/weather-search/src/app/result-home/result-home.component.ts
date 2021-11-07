@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressTransferService } from '../address-transfer.service';
 import { DailyDataTransferService } from '../daily-data-transfer.service';
+import { DayIndexTransferService } from '../day-index-transfer.service';
 
 @Component({
   selector: 'app-result-home',
@@ -13,13 +14,17 @@ export class ResultHomeComponent implements OnInit {
   isBiStarFill = false;
   isFavorite = false;
   daily: any = null;
-  constructor(private _addressTransferService: AddressTransferService ) {}
+  dayIndex: number = 0;
+  constructor(private _addressTransferService: AddressTransferService, private _dayIndexTransferService: DayIndexTransferService ) {}
   
 
   ngOnInit(): void {
     this._addressTransferService.currentAddress.subscribe(address => {
         this.address = address;
     });
+    this._dayIndexTransferService.currentDayIndex.subscribe(dayIndex => {
+      this.dayIndex = dayIndex;
+    })
     
   }
   starOnClick()

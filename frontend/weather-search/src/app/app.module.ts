@@ -28,6 +28,7 @@ import { DailyDataTransferService } from './daily-data-transfer.service';
 import { HourlyDataTransferService } from './hourly-data-transfer.service';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { LocationTransferService } from './location-transfer.service';
+import { DayIndexTransferService } from './day-index-transfer.service';
 const routes: Routes = 
 [
   {
@@ -81,7 +82,7 @@ const routes: Routes =
     RouterModule.forRoot(routes),
     GoogleMapsModule
   ],
-  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService,LocationTransferService],
+  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService,LocationTransferService,DayIndexTransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

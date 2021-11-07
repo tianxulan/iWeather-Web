@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddressTransferService } from '../address-transfer.service';
 import { DailyDataTransferService } from '../daily-data-transfer.service';
+import { DayIndexTransferService } from '../day-index-transfer.service';
 import { LocationTransferService } from '../location-transfer.service';
 import { weatherCodesDescript } from '../weatherCodesDescript';
 
@@ -26,15 +27,19 @@ export class ResultDayComponent implements OnInit {
   marker = {
     position: { lat: 0, lng: 0 },
   }
-  constructor(private route: ActivatedRoute, private _dailyDataTransferService: DailyDataTransferService, private _addressTransferService: AddressTransferService, private _locationTransferService:LocationTransferService ) { }
+  constructor(private route: ActivatedRoute, private _dailyDataTransferService: DailyDataTransferService, private _addressTransferService: AddressTransferService, private _locationTransferService:LocationTransferService, private _dayIndexTransferService: DayIndexTransferService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.dayIndex = +params.get("dayIndex");
+      this._dayIndexTransferService.changeDayIndex(this.dayIndex);
     })
 
     this._addressTransferService.currentAddress.subscribe(address => {
       this.address = address;
+    });
+    this._dayIndexTransferService.currentDayIndex.subscribe(dayIndex => {
+      this.dayIndex = dayIndex;
     });
 
 

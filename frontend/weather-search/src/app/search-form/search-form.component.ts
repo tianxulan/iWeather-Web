@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, debounceTime, map, retry, startWith } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -70,7 +71,7 @@ export class SearchFormComponent implements OnInit {
   latitude: string = "";
   longitude: string = "";
   addressFromGeocoding:string = "";
-  constructor(private fb: FormBuilder, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService, private _addressTransferService: AddressTransferService, private _dailyDataTransferService: DailyDataTransferService, private _hourlyDataTransferService: HourlyDataTransferService, private _locationTransferService: LocationTransferService) { 
+  constructor(private fb: FormBuilder, private router: Router, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService, private _addressTransferService: AddressTransferService, private _dailyDataTransferService: DailyDataTransferService, private _hourlyDataTransferService: HourlyDataTransferService, private _locationTransferService: LocationTransferService) { 
     
     this.searchForm = this.fb.group({
       inputStreet: [{value:'', disabled: false}, Validators.required],
@@ -222,18 +223,13 @@ export class SearchFormComponent implements OnInit {
                 console.log("Hourly data received from backend:");
                 console.log(data.data.timelines[0]);
               }
-            });
+           });
          }
          else
          {
            
 
          }
-            
-           
-         
-        
-         
          
          // upon google geocoding results recived, send the loc and lat to
          // call to backend for daily Service
@@ -243,6 +239,7 @@ export class SearchFormComponent implements OnInit {
         });
       
     }
+    this.router.navigate(['/resultHome/dayView']);
     
   }
   
