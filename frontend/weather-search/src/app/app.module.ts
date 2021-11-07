@@ -26,6 +26,8 @@ import { MeteogramComponent } from './meteogram/meteogram.component';
 import { AddressTransferService } from './address-transfer.service';
 import { DailyDataTransferService } from './daily-data-transfer.service';
 import { HourlyDataTransferService } from './hourly-data-transfer.service';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { LocationTransferService } from './location-transfer.service';
 const routes: Routes = 
 [
   {
@@ -76,9 +78,10 @@ const routes: Routes =
     MatFormFieldModule,
     MatAutocompleteModule,
     MatInputModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    GoogleMapsModule
   ],
-  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService],
+  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService,LocationTransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,6 +13,7 @@ import { HourlyDataTransferService } from '../hourly-data-transfer.service';
 import { IWeatherService } from '../i-weather.service';
 import { IpInfoService } from '../ip-info.service';
 import { IWeather } from '../iWeather';
+import { LocationTransferService } from '../location-transfer.service';
 import { ResultAddress } from '../resultAddress';
 import { State } from '../states';
 import { StatesService } from '../states.service';
@@ -29,7 +30,8 @@ export class SearchFormComponent implements OnInit {
   isAutoDetected = false;
   disableStreet = false;
   stateSelection ="";
-
+  
+  
   //for city control
   numberOfCityChanges: number = 0;
   myControl = new FormControl();
@@ -59,6 +61,7 @@ export class SearchFormComponent implements OnInit {
   }
   daily:any = null; 
   hourly:any = null;
+  location:any = null;
 
   //variable to share with other components
   address: string = "";
@@ -67,7 +70,7 @@ export class SearchFormComponent implements OnInit {
   latitude: string = "";
   longitude: string = "";
   addressFromGeocoding:string = "";
-  constructor(private fb: FormBuilder, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService, private _addressTransferService: AddressTransferService, private _dailyDataTransferService: DailyDataTransferService, private _hourlyDataTransferService: HourlyDataTransferService) { 
+  constructor(private fb: FormBuilder, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService, private _addressTransferService: AddressTransferService, private _dailyDataTransferService: DailyDataTransferService, private _hourlyDataTransferService: HourlyDataTransferService, private _locationTransferService: LocationTransferService) { 
     
     this.searchForm = this.fb.group({
       inputStreet: [{value:'', disabled: false}, Validators.required],
@@ -97,6 +100,10 @@ export class SearchFormComponent implements OnInit {
     this._addressTransferService.currentAddress.subscribe(address => {
         this.address = address;
     });
+
+    this._locationTransferService.currentLocationData.subscribe(address => {
+      this.location = location;
+  });
 
     this._dailyDataTransferService.currentDailyData.subscribe(daily => {
       this.daily = daily;
@@ -162,7 +169,8 @@ export class SearchFormComponent implements OnInit {
       this.latitude =auto_detect_arr[0]; 
       this.longitude = auto_detect_arr[1];
       
-      
+      this._locationTransferService.changeLocation({"lat":this.latitude, "lng":this.longitude});
+
 
       //send to node backend
        this._iWeatherService.getIWeather(this.latitude,this.longitude,"daily").subscribe((data: any) => { 
@@ -189,6 +197,9 @@ export class SearchFormComponent implements OnInit {
             this.latitude = data.results[0].geometry.location.lat; 
             this.longitude = data.results[0].geometry.location.lng; 
             this.address = data.results[0].formatted_address;
+
+            this._locationTransferService.changeLocation({"lat":this.latitude, "lng":this.longitude});
+
             this._addressTransferService.changeAddress(this.address);
             
             this._iWeatherService.getIWeather(this.latitude,this.longitude,"daily").subscribe((data: any) => {
@@ -199,6 +210,7 @@ export class SearchFormComponent implements OnInit {
                 {
                   console.log("Daily data received from backend:");
                   console.log(data.data.timelines[0]);
+                  this._dailyDataTransferService.changeDailyData(this.daily); 
                 }
               } );
             this._iWeatherService.getIWeather(this.latitude,this.longitude,"hourly").subscribe((data: any) => { 

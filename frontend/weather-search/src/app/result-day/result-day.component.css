@@ -5,6 +5,12 @@
         width: 65%;
 
     }
+    .my-google-map .map-container{
+          width: 800px;
+          height: 600px;
+        }
+      
+    
 
 }
 @media (max-width:575.8px) 
@@ -13,5 +19,11 @@
     {
         width: 100%;
     }
+    .my-google-map .map-container{
+        width: 800px;
+        height: 600px;
+      }
+    
+     
 
 }
