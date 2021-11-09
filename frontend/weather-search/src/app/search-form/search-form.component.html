@@ -4,7 +4,7 @@
         <div id="weather-search-title" class = "d-flex justify-content-center ">
             <h5>Weather Search 🌤</h5>
         </div>
-        <form class = "d-grid gap-3 needs-validation" [formGroup]="searchForm" (ngSubmit)="onSubmit()" novalidate>   
+        <form class = "d-grid gap-3 needs-validation" [formGroup]="searchForm" (ngSubmit)="onSubmit()" novalidate autocomplete="off">   
             <div class="form-group row required">
               <label for="inputStreet" class="col-sm-3 col-form-label">Street</label>
               <div class="col-sm-9">
@@ -77,7 +77,7 @@
                             <i class="bi bi-search"></i>Search</button>
                     </div>
                     <div class="col-4" id="clear-button">
-                        <button type="reset" class="btn btn-primary text-black bg-white" ><i class="bi bi-list-nested"></i>Clear</button>
+                        <button type="reset" class="btn btn-primary text-black bg-white" (click) = "onReset()" routerLink="/"><i class="bi bi-list-nested" ></i>Clear</button>
                       </div>
                 </div>
             </div>

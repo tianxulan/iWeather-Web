@@ -52,16 +52,7 @@ export class DailyTempComponent implements OnInit {
   },
   plotOptions: {
       series: {
-          fillColor: 
-          {
-              linearGradient: [0, 0, 0,250],
-              stops: 
-              [
-                  [0, "#FF8800"],
-                  [1, "#E1EBF5"]
-              ]
-          },
-          lineColor: "#FF8800"
+         
       }
   },
   legend: {

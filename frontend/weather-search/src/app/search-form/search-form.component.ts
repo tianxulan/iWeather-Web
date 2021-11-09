@@ -266,6 +266,13 @@ export class SearchFormComponent implements OnInit {
     return cityCommaState;
 
   }
+  onReset()
+  {
+    this.searchForm.controls["inputStreet"].enable();
+    this.searchForm.controls["inputCity"].enable();
+    this.searchForm.controls["inputState"].enable(); 
+    this.isAutoDetected = false;
+  }
 
 }
 
