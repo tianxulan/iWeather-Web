@@ -69,18 +69,18 @@
                   </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="form-group row justify-content-start">
-                    <div class="col-4">
+            
+                <div class="form-group row ">
+                    <div class="col-4 col-sm-4 col-md-2 ">
                         <button type="submit" class="btn btn-primary" id="inputSubmit"   
                             [disabled] = "(searchForm.controls['inputCity'].invalid || searchForm.controls['inputCity'].invalid) && !isAutoDetected">
-                            <i class="bi bi-search"></i>Search</button>
+                            <i class="bi bi-search" style="font-size: 0.9rem;"></i>Search</button>
                     </div>
-                    <div class="col-4" id="clear-button">
-                        <button type="reset" class="btn btn-primary text-black bg-white" (click) = "onReset()" routerLink="/main/result"><i class="bi bi-list-nested" ></i>Clear</button>
+                    <div class="col-4 col-sm-4 col-md-2 " id="clear-button">
+                        <button type="reset" class="btn btn-primary text-black bg-white" (click) = "onReset()" routerLink="/main/result" style="border-color: black;"><i class="bi bi-list-nested"style="font-size: 0.9rem;" ></i>Clear</button>
                       </div>
                 </div>
-            </div>
+            
             
         </form> 
     </div>

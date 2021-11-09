@@ -35,10 +35,7 @@
   .example-full-width {
     width: 100%;
   }
-#clear-button
-{
-    margin-left: -150px;
-}
+
 .alert-danger {
     padding: 0%;
     background-color:transparent;
@@ -54,7 +51,7 @@
     border-color: red;
 }
 
-@media (max-width:575.98px) 
+@media (max-width:992px) 
 {
     #wetherSearchForm
     {
@@ -64,8 +61,6 @@
     {
         width: 95%;
     }
-    #clear-button
-    {
-    margin-left: 0px;
-    }
+    
+    
 } 
