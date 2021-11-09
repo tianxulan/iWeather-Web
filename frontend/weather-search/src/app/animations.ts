@@ -29,7 +29,11 @@ function slideTo(direction) {
             ], optional),
             query(':enter', [
                 animate('1300ms ease', style({ [direction]: '0%'}))
-            ])
+            ]),
+            query(':leave *', [
+                style({}),
+                animate(1, style({}))
+            ], optional)
         ]),
         // Normalize the page style... Might not be necessary
 
