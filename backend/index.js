@@ -13,7 +13,7 @@ app.use(cors({
 // Serve Homepage
 app.get('/', function(req, res)
 {
-    res.sendFile("index.html", { root: __dirname + "/public"});
+    res.sendFile("/angularBuild/index.html", { root: __dirname + "/public"});
 });
 // Serve staic file
 app.use(express.static('public'));
