@@ -158,6 +158,8 @@ export class SearchFormComponent implements OnInit {
  
   onSubmit()
   {
+    
+    
     if(this.isAutoDetected)
     {
       // send address from IPInfo to resultHome
@@ -197,7 +199,9 @@ export class SearchFormComponent implements OnInit {
          if (data.status == "OK"){
             this.latitude = data.results[0].geometry.location.lat; 
             this.longitude = data.results[0].geometry.location.lng; 
-            this.address = data.results[0].formatted_address;
+
+            this.address =  this.parseGeocodingToCityState(data.results[0].address_components)
+            
 
             this._locationTransferService.changeLocation({"lat":this.latitude, "lng":this.longitude});
 
@@ -239,10 +243,29 @@ export class SearchFormComponent implements OnInit {
         });
       
     }
-    this.router.navigate(['/resultHome/dayView']);
+    this.router.navigate(['/progressBar']);
     
   }
-  
+  parseGeocodingToCityState(arr: any)
+  {
+    let cityCommaState: string= "";
+    arr.forEach(function(component)
+    {
+      if(component.types[0] == "locality")
+      {
+          cityCommaState += component.long_name;
+          cityCommaState += ", "
+      }
+      if(component.types[0] == "administrative_area_level_1")
+      {
+          cityCommaState += component.long_name;
+      }
+
+    }
+    );
+    return cityCommaState;
+
+  }
 
 }
 

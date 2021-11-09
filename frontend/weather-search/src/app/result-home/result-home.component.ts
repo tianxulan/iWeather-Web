@@ -10,25 +10,56 @@ import { DayIndexTransferService } from '../day-index-transfer.service';
 })
 export class ResultHomeComponent implements OnInit {
   address: string = "";
+  city :string = "";
+  state: string = "";
   isBiStar = true;
   isBiStarFill = false;
   isFavorite = false;
   daily: any = null;
   dayIndex: number = 0;
+  loaded: boolean = false;
   constructor(private _addressTransferService: AddressTransferService, private _dayIndexTransferService: DayIndexTransferService ) {}
   
 
   ngOnInit(): void {
     this._addressTransferService.currentAddress.subscribe(address => {
         this.address = address;
+        let arr = address.split(',');
+        this.city = arr[0].trim();
+        this.state = arr[1].trim();
+
+        //render fill/unfill of star
+        if(localStorage.getItem(this.city)!= null)
+      {
+        this.isBiStar = false;
+        this.isBiStarFill = true;
+        this.isFavorite = true;
+
+      }
+      else
+      {
+        this.isBiStar = true;
+        this.isBiStarFill = false;
+        this.isFavorite = false;
+
+      }
     });
     this._dayIndexTransferService.currentDayIndex.subscribe(dayIndex => {
       this.dayIndex = dayIndex;
     })
     
+    
   }
   starOnClick()
   {
+    if(this.isFavorite)
+    {
+      localStorage.removeItem(this.city);
+    }
+    else
+    {
+      localStorage.setItem(this.city,this.state); 
+    }
     this.isBiStar = !this.isBiStar;
     this.isBiStarFill = !this.isBiStarFill; 
     this.isFavorite = !this.isFavorite;

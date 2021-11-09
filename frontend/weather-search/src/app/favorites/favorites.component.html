@@ -1,1 +1,23 @@
-<p>favorites works!</p>
+<div class="container">
+    <table *ngIf="anyFavorite" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col"> </th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let favorite of favorites;let i = index ">
+                <th scope="row">{{i+1}}</th>
+                <td (click)="favoriteItemOnClick(favorite)">{{favorite.city}}</td>
+                <td (click)="favoriteItemOnClick(favorite)">{{favorite.state}}</td>
+                <td> <button (click)="deleteStorage(favorite.city)" style="background-color: transparent; border-color: transparent;"><i  class="bi bi-trash"></i></button></td>
+            </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!anyFavorite" class="alert alert-warning mt-5" role="alert">
+        <b>Sorry!</b> No records Found.
+      </div>
+</div>

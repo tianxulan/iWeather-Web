@@ -29,6 +29,7 @@ import { HourlyDataTransferService } from './hourly-data-transfer.service';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { LocationTransferService } from './location-transfer.service';
 import { DayIndexTransferService } from './day-index-transfer.service';
+import { ProgessBarComponent } from './progess-bar/progess-bar.component';
 const routes: Routes = 
 [
   {
@@ -54,6 +55,10 @@ const routes: Routes =
     path: 'favorites',
     component: FavoritesComponent
   },
+  {
+    path: 'progressBar',
+    component: ProgessBarComponent
+  }
 ]
 
 @NgModule({
@@ -67,6 +72,7 @@ const routes: Routes =
     DayViewComponent,
     DailyTempComponent,
     MeteogramComponent,
+    ProgessBarComponent,
 
   ],
   imports: [
