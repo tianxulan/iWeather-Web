@@ -45,11 +45,13 @@ const routes: Routes =
       {
         path:'meteogram', component:MeteogramComponent
       }
-    ]
+    ],
+    data:{animation:"resultHomePage"}
   },
   {
     path: 'resultDay/:dayIndex',
-    component: ResultDayComponent
+    component: ResultDayComponent,
+    data:{animation:"resultDayPage"}
   }, 
   {
     path: 'favorites',
