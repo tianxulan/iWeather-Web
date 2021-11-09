@@ -20,6 +20,24 @@ interface extendTooltip extends Highcharts.Tooltip {
   valueSuffix: string,
   xDateFormat: string
 }
+interface extendSeries extends Highcharts.PlotSeriesOptions
+{
+  fillColor: 
+          {
+              linearGradient: [0, 0, 0,200],
+              stops: 
+              [
+                  [0, "#FF8800"],
+                  [1, "#E1EBF5"]
+              ]
+          },
+          lineColor: "#FF8800"
+    
+}
+
+
+
+
 @Component({
   selector: 'app-daily-temp',
   templateUrl: './daily-temp.component.html',
@@ -74,7 +92,22 @@ export class DailyTempComponent implements OnInit {
                 xDateFormat: '%A, %b %e'
           
       } as extendTooltip,
-      
+      plotOptions: {
+        series: {
+          fillColor: 
+          {
+              linearGradient: [0, 0, 0,200],
+              stops: 
+              [
+                  [0, "#FF8800"],
+                  [1, "#E1EBF5"]
+              ]
+          },
+          lineColor: "#FF8800"
+      } as extendSeries
+        
+        
+    } , 
       legend: {
           enabled: false
       },
