@@ -46,12 +46,12 @@ const routes: Routes =
         path:'meteogram', component:MeteogramComponent
       }
     ],
-    data:{animation:0}
+    data:{animation:"isLeft"}
   },
   {
     path: 'resultDay/:dayIndex',
     component: ResultDayComponent,
-    data:{animation:1}
+    data:{animation:"isRight"}
   }, 
   {
     path: 'favorites',
