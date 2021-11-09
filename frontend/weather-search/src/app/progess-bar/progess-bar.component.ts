@@ -12,7 +12,7 @@ export class ProgessBarComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.router.navigate(["../resultHome/dayView"]);
+      this.router.navigate(["../result/resultHome/dayView"]);
   }, 1000);
   }
 

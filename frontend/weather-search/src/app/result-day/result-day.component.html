@@ -1,7 +1,7 @@
 <div class="container mt-5" id="resultDayWindow">
     <div class="row justify-content-between">
         <div class ="col-3 col-lg-1 d-flex justify-content-start">
-            <button id="detailButton" routerLinkActive="active current" routerLink='/resultHome/dayView'  class="btn btn-sm text-black bg-white border border-dark" > <i class="bi bi-chevron-left" style="font-size: 0.9rem;"></i>List</button>
+            <button id="backButton" routerLinkActive="active current" routerLink='../../resultHome/dayView'  class="btn btn-sm text-black bg-white border border-dark" > <i class="bi bi-chevron-left" style="font-size: 0.9rem;"></i>List</button>
         </div>
         <div class="col-6 col-lg-8 d-flex justify-content-center">
             <h4>{{singleDayData.startTime | date:'EEEE, dd MMM y'}}</h4>
@@ -21,45 +21,45 @@
     <table class="table table-striped mt-3">
         <tbody>
             <tr>
-                <th scope="row"><b>weatherCode</b></th>
-                <td>{{singleDayData.values.weatherCode}}</td>
+                <th scope="row"><b>Status</b></th>
+                <td>{{weatherCodeToDescript(singleDayData.values.weatherCode)}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Max Temperature</b></th>
-                <td>{{singleDayData.values.temperatureMax}}</td>
+                <td>{{singleDayData.values.temperatureMax + " °F"}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Min Temperature</b></th>
-                <td>{{singleDayData.values.temperatureMin}}</td>
+                <td>{{singleDayData.values.temperatureMin + " °F"}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Apparent Temperature</b></th>
-                <td>{{singleDayData.values.temperatureApparent}}</td>
+                <td>{{singleDayData.values.temperatureApparent + " °F"}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Sun Rise Time</b></th>
-                <td>{{singleDayData.values.sunriseTime | date:"hh:mm:ss"}}</td>
+                <td>{{singleDayData.values.sunriseTime | date:"HH:mm:ss"}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Sun Set Time</b></th>
-                <td>{{singleDayData.values.sunsetTime | date:"hh:mm:ss"}}</td>
+                <td>{{singleDayData.values.sunsetTime | date:"HH:mm:ss"}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Humidity</b></th>
-                <td>{{singleDayData.values.humidity}}</td>
+                <td>{{singleDayData.values.humidity + ' %'}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Wind Speed</b></th>
-                <td>{{singleDayData.values.windSpeed}}</td>
+                <td>{{singleDayData.values.windSpeed + ' mph'}}</td>
             </tr>
             
             <tr>
                 <th scope="row"><b>Visibility</b></th>
-                <td>{{singleDayData.values.visibility}}</td>
+                <td>{{singleDayData.values.visibility  + 'mi'}}</td>
             </tr>
             <tr>
                 <th scope="row"><b>Cloud Cover</b></th>
-                <td>{{singleDayData.values.cloudCover}}</td>
+                <td>{{singleDayData.values.cloudCover  + ' %'}}</td>
             </tr>
             
             

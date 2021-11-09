@@ -30,29 +30,38 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { LocationTransferService } from './location-transfer.service';
 import { DayIndexTransferService } from './day-index-transfer.service';
 import { ProgessBarComponent } from './progess-bar/progess-bar.component';
+import { ResultComponent } from './result/result.component';
 const routes: Routes = 
 [
   {
-    path: 'resultHome',
-    component: ResultHomeComponent,
+    path: 'result',
+    component: ResultComponent,
     children:[
       {
-        path:'dayView', component:DayViewComponent
+        path: 'resultHome',
+        component: ResultHomeComponent,
+        children:[
+          {
+            path:'dayView', component:DayViewComponent
+          },
+          {
+            path:'dailyTemp', component:DailyTempComponent
+          },
+          {
+            path:'meteogram', component:MeteogramComponent
+          }
+        ],
+        data:{animation:"isLeft"}
       },
       {
-        path:'dailyTemp', component:DailyTempComponent
-      },
-      {
-        path:'meteogram', component:MeteogramComponent
+        path: 'resultDay/:dayIndex',
+        component: ResultDayComponent,
+        data:{animation:"isRight"}
       }
-    ],
-    data:{animation:"isLeft"}
-  },
-  {
-    path: 'resultDay/:dayIndex',
-    component: ResultDayComponent,
-    data:{animation:"isRight"}
-  }, 
+
+    ]
+  }
+  , 
   {
     path: 'favorites',
     component: FavoritesComponent
@@ -75,6 +84,7 @@ const routes: Routes =
     DailyTempComponent,
     MeteogramComponent,
     ProgessBarComponent,
+    ResultComponent,
 
   ],
   imports: [

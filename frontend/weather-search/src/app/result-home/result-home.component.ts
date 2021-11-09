@@ -34,14 +34,13 @@ export class ResultHomeComponent implements OnInit {
         this.isBiStar = false;
         this.isBiStarFill = true;
         this.isFavorite = true;
-
+        
       }
       else
       {
         this.isBiStar = true;
         this.isBiStarFill = false;
         this.isFavorite = false;
-
       }
     });
     this._dayIndexTransferService.currentDayIndex.subscribe(dayIndex => {

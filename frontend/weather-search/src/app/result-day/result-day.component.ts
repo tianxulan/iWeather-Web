@@ -63,7 +63,10 @@ export class ResultDayComponent implements OnInit {
     
   }
   
-  
+  weatherCodeToDescript(code: string)
+  {
+    return weatherCodesDescript[code];
+  } 
   
 
 }
