@@ -31,6 +31,7 @@ import { LocationTransferService } from './location-transfer.service';
 import { DayIndexTransferService } from './day-index-transfer.service';
 import { ProgessBarComponent } from './progess-bar/progess-bar.component';
 import { ResultComponent } from './result/result.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 const routes: Routes = 
 [
   {
@@ -98,7 +99,8 @@ const routes: Routes =
     MatAutocompleteModule,
     MatInputModule,
     RouterModule.forRoot(routes),
-    GoogleMapsModule
+    GoogleMapsModule,
+    HighchartsChartModule
   ],
   providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService,LocationTransferService,DayIndexTransferService],
   bootstrap: [AppComponent]
