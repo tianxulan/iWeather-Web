@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from '../animations';
+import { ResultAvailableTransferServiceService } from '../result-available-transfer-service.service';
 
 @Component({
   selector: 'result',
@@ -9,11 +10,12 @@ import { slideInAnimation } from '../animations';
   animations:[slideInAnimation]
 })
 export class ResultComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  resultAvailable = false;
+  constructor(private router: Router, private _resultAvailableTransferService: ResultAvailableTransferServiceService) { }
 
   ngOnInit(): void {
-    this.router.navigate(['/result/resultHome/dayView'])
+
+   
   }
   prepareRoute(outlet: RouterOutlet) {
     return outlet?.activatedRouteData?.['animation'];

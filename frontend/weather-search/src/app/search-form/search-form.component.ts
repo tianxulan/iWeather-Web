@@ -15,6 +15,7 @@ import { IWeatherService } from '../i-weather.service';
 import { IpInfoService } from '../ip-info.service';
 import { IWeather } from '../iWeather';
 import { LocationTransferService } from '../location-transfer.service';
+import { ResultAvailableTransferServiceService } from '../result-available-transfer-service.service';
 import { ResultAddress } from '../resultAddress';
 import { State } from '../states';
 import { StatesService } from '../states.service';
@@ -31,7 +32,7 @@ export class SearchFormComponent implements OnInit {
   isAutoDetected = false;
   disableStreet = false;
   stateSelection ="";
-  
+
   
   //for city control
   numberOfCityChanges: number = 0;
@@ -63,7 +64,7 @@ export class SearchFormComponent implements OnInit {
   daily:any = null; 
   hourly:any = null;
   location:any = null;
-
+  resultAvailable:boolean = false;
   //variable to share with other components
   address: string = "";
 
@@ -71,7 +72,7 @@ export class SearchFormComponent implements OnInit {
   latitude: string = "";
   longitude: string = "";
   addressFromGeocoding:string = "";
-  constructor(private fb: FormBuilder, private router: Router, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService, private _addressTransferService: AddressTransferService, private _dailyDataTransferService: DailyDataTransferService, private _hourlyDataTransferService: HourlyDataTransferService, private _locationTransferService: LocationTransferService) { 
+  constructor(private fb: FormBuilder, private router: Router, private _stateService: StatesService, private _ipInfoService: IpInfoService, private _geocodingService: GeocodingService, private _iWeatherService: IWeatherService, private _autoCompleteService: AutoCompleteService, private _addressTransferService: AddressTransferService, private _dailyDataTransferService: DailyDataTransferService, private _hourlyDataTransferService: HourlyDataTransferService, private _locationTransferService: LocationTransferService, private _resultAvailableTransferService: ResultAvailableTransferServiceService) { 
     
     this.searchForm = this.fb.group({
       inputStreet: [{value:'', disabled: false}, Validators.required],
@@ -111,6 +112,9 @@ export class SearchFormComponent implements OnInit {
     });
     this._hourlyDataTransferService.currentHourlyData.subscribe(hourly => {
       this.hourly = hourly;
+    });
+    this._resultAvailableTransferService.currentResultAvailable.subscribe(result =>{
+      this.resultAvailable = result;
     });
     
   }
@@ -243,7 +247,8 @@ export class SearchFormComponent implements OnInit {
         });
       
     }
-    this.router.navigate(['/progressBar']);
+    this._resultAvailableTransferService.changeDayIndex(true);
+    this.router.navigate(['/main/progressBar']);
     
   }
   parseGeocodingToCityState(arr: any)
@@ -272,6 +277,7 @@ export class SearchFormComponent implements OnInit {
     this.searchForm.controls["inputCity"].enable();
     this.searchForm.controls["inputState"].enable(); 
     this.isAutoDetected = false;
+    this._resultAvailableTransferService.changeDayIndex(false);
   }
 
 }

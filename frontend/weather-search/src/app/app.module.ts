@@ -32,44 +32,63 @@ import { DayIndexTransferService } from './day-index-transfer.service';
 import { ProgessBarComponent } from './progess-bar/progess-bar.component';
 import { ResultComponent } from './result/result.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ResultAvailableTransferServiceService } from './result-available-transfer-service.service';
+import { MainComponent } from './main/main.component';
 const routes: Routes = 
 [
   {
-    path: 'result',
-    component: ResultComponent,
-    children:[
+    path: 'main',
+    component:MainComponent,
+    children:
+    [
       {
-        path: 'resultHome',
-        component: ResultHomeComponent,
-        children:[
-          {
-            path:'dayView', component:DayViewComponent
-          },
-          {
-            path:'dailyTemp', component:DailyTempComponent
-          },
-          {
-            path:'meteogram', component:MeteogramComponent
-          }
-        ],
-        data:{animation:"isLeft"}
-      },
-      {
-        path: 'resultDay/:dayIndex',
-        component: ResultDayComponent,
-        data:{animation:"isRight"}
-      }
+      path: 'result',
+      component: ResultComponent,
+      children:
+      [
+        {
+          path: 'resultHome',
+          component: ResultHomeComponent,
+          children:
+          [
+            {
+              path:'dayView', component:DayViewComponent
+            },
+            {
+              path:'dailyTemp', component:DailyTempComponent
+            },
+            {
+              path:'meteogram', component:MeteogramComponent
+            }
+          ],
+          data:{animation:"isLeft"}
+        },
+        {
+          path: 'resultDay/:dayIndex',
+          component: ResultDayComponent,
+          data:{animation:"isRight"}
+        },
+        
+      ]
+    },
+    {
+      path: 'progressBar',
+      component: ProgessBarComponent
+    },
 
     ]
-  }
+  } 
+  
   , 
   {
     path: 'favorites',
     component: FavoritesComponent
   },
+  
   {
-    path: 'progressBar',
-    component: ProgessBarComponent
+    path:'',
+    redirectTo:'main/result',
+    pathMatch:'full'
   }
 ]
 
@@ -86,6 +105,7 @@ const routes: Routes =
     MeteogramComponent,
     ProgessBarComponent,
     ResultComponent,
+    MainComponent,
 
   ],
   imports: [
@@ -102,7 +122,7 @@ const routes: Routes =
     GoogleMapsModule,
     HighchartsChartModule
   ],
-  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService,LocationTransferService,DayIndexTransferService],
+  providers: [StatesService, IpInfoService,GeocodingService,IWeatherService,AutoCompleteService,AddressTransferService,DailyDataTransferService,HourlyDataTransferService,LocationTransferService,DayIndexTransferService,ResultAvailableTransferServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
