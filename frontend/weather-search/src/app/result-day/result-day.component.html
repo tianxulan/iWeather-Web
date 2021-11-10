@@ -7,10 +7,11 @@
             <b id="title">{{singleDayData.startTime | date:'EEEE, dd MMM y'}}</b>
         </div>
         <div class="col-2  col-lg-1 d-flex justify-content-end">
-            <button id="detailButton" routerLinkActive="active current" routerLink="/resultDay/0"  class="btn btn btn-primary btn-sm text-black  border border-dark" style="background-color: rgb(0, 140, 255);" >
-            <a class="twitter-share-button" [href]="twitterText" target="_blank"> <i class="bi bi-twitter" style="font-size: 1.2rem; color:white; "> </i></a> 
-                
-            </button>
+            <a class="twitter-share-button" [href]="twitterText" target="_blank">
+                <button id="detailButton"   class="btn btn btn-primary btn-sm text-black  border border-dark" style="background-color: rgb(0, 140, 255);" >
+                <i class="bi bi-twitter" style="font-size: 1.5rem; color:white; "> </i> 
+                </button> 
+            </a>
         </div>
     </div>
     <table class="table table-striped mt-3">
