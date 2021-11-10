@@ -13,5 +13,9 @@
     {
         width: 100%;
     }
+    thead tr th
+    {
+        font-size: 11px;
+    }
 
 }
