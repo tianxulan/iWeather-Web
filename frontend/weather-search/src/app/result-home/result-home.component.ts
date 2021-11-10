@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddressTransferService } from '../address-transfer.service';
 import { DailyDataTransferService } from '../daily-data-transfer.service';
 import { DayIndexTransferService } from '../day-index-transfer.service';
+import { LocationTransferService } from '../location-transfer.service';
 
 @Component({
   selector: 'app-result-home',
@@ -18,7 +19,8 @@ export class ResultHomeComponent implements OnInit {
   daily: any = null;
   dayIndex: number = 0;
   loaded: boolean = false;
-  constructor(private _addressTransferService: AddressTransferService, private _dayIndexTransferService: DayIndexTransferService ) {}
+  location:string = "";
+  constructor(private _addressTransferService: AddressTransferService, private _dayIndexTransferService: DayIndexTransferService, private _locationTransferService: LocationTransferService) {}
   
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class ResultHomeComponent implements OnInit {
         this.isBiStar = false;
         this.isBiStarFill = true;
         this.isFavorite = true;
-        
+
       }
       else
       {
@@ -45,6 +47,11 @@ export class ResultHomeComponent implements OnInit {
     });
     this._dayIndexTransferService.currentDayIndex.subscribe(dayIndex => {
       this.dayIndex = dayIndex;
+    })
+    this._locationTransferService.currentLocationData.subscribe(location =>{
+      console.log(location.lat);
+      console.log(location.lng);
+      this.location = location.lat + ',' +  location.lng;
     })
     
     

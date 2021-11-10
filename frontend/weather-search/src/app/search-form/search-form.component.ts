@@ -222,16 +222,7 @@ export class SearchFormComponent implements OnInit {
                   this._dailyDataTransferService.changeDailyData(this.daily); 
                 }
               } );
-            this._iWeatherService.getIWeather(this.latitude,this.longitude,"hourly").subscribe((data: any) => { 
-              this.hourly = data;
-              // !!!! WARNING this is a race Condtion, there is no gurantee data.data will always be fine
-              // code to process data (Should emit event and send to results component)
-              if(data.status == "200")
-              {
-                console.log("Hourly data received from backend:");
-                console.log(data.data.timelines[0]);
-              }
-           });
+            
          }
          else
          {
