@@ -58,7 +58,7 @@ const routes: Routes =
               path:'dailyTemp', component:DailyTempComponent
             },
             {
-              path:'meteogram', component:MeteogramComponent
+              path:'meteogram/:loc', component:MeteogramComponent
             }
           ],
           data:{animation:"isLeft"}
