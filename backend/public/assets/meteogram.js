@@ -500,7 +500,7 @@
     const longitude = params_array[1];
     console.log(latitude);
     console.log(longitude);
-    const url = `https://weather-node-330706.wn.r.appspot.com//search?latitude=${latitude}&longitude=${longitude}&type=daily`
+    const url = `https://weather-node-330706.wn.r.appspot.com//search?latitude=${latitude}&longitude=${longitude}&type=hourly`
 
     console.log("Request sent for highchart diagram: " +url);
     Highcharts.ajax({
