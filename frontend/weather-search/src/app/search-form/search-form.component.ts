@@ -186,7 +186,6 @@ export class SearchFormComponent implements OnInit {
         });
 
       
-      this._iWeatherService.getIWeather(this.latitude,this.longitude,"hourly").subscribe((data: any) => { this.hourly;});
 
       
     }
