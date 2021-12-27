@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
 })
 
 export class GeocodingService {
-  //private geocodingServiceURL:string="https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAqP8OpmUqIOMrodKUcxBnyf76_P8waij4";
   private geocodingServiceURL:string="";
   private geocodingHead:string = "https://maps.googleapis.com/maps/api/geocode/json?address=";
   private geocodingAPIKey:string="&key=" + environment.googleApiKey;
