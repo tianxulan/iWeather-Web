@@ -5,7 +5,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 1964;
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 var runLocal = true;
-
+var enviroment = require('./environment')
 // Enable CORS
 app.use(cors({
     origin: '*'
@@ -21,7 +21,7 @@ app.use(express.static('public'));
 // Serve autoComplete for city suggestion in frontend
 app.get('/autoComplete', (req,res)=> {
     let keyword = req.query.keyword;
-    let urlToAutoComplete = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${keyword}&types=(cities)&language=en&components=country:us&key=AIzaSyBy8dLihEmKyaXkWKyn5DGUz1tNMC-8Dp8`
+    let urlToAutoComplete = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${keyword}&types=(cities)&language=en&components=country:us&key=${enviroment.tomorrowioApiKey}`
     fetch(urlToAutoComplete)
     .then(res => res.json())
     .then(data => {
