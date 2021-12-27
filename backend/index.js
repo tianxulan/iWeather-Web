@@ -21,7 +21,7 @@ app.use(express.static('public'));
 // Serve autoComplete for city suggestion in frontend
 app.get('/autoComplete', (req,res)=> {
     let keyword = req.query.keyword;
-    let urlToAutoComplete = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${keyword}&types=(cities)&language=en&components=country:us&key=${enviroment.tomorrowioApiKey}`
+    let urlToAutoComplete = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${keyword}&types=(cities)&language=en&components=country:us&key=${enviroment.googleAutoCompleteApiKey}`
     fetch(urlToAutoComplete)
     .then(res => res.json())
     .then(data => {
@@ -47,15 +47,15 @@ app.get('/search', (req, res) => {
     let url_to_tomorrowio = '';
     if( type == "current" )
     {
-        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=weatherCode,temperature,humidity,pressureSeaLevel,windSpeed,visibility,cloudCover,uvIndex&timesteps=current&units=imperial&timezone=America/Los_Angeles&apikey=ZdwyJ8FAyqyCIJgQijJoauA2IQZWlcw5`
+        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=weatherCode,temperature,humidity,pressureSeaLevel,windSpeed,visibility,cloudCover,uvIndex&timesteps=current&units=imperial&timezone=America/Los_Angeles&apikey=${enviroment.tomorrowioApiKey}`
     }
     else if (type == "daily")
     {
-        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=weatherCode,temperatureMax,temperatureMin,precipitationType,precipitationProbability,windSpeed,cloudCover,temperatureApparent,humidity,visibility,sunriseTime,sunsetTime&timesteps=1d&units=imperial&timezone=America/Los_Angeles&apikey=ZdwyJ8FAyqyCIJgQijJoauA2IQZWlcw5`
+        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=weatherCode,temperatureMax,temperatureMin,precipitationType,precipitationProbability,windSpeed,cloudCover,temperatureApparent,humidity,visibility,sunriseTime,sunsetTime&timesteps=1d&units=imperial&timezone=America/Los_Angeles&apikey=${enviroment.tomorrowioApiKey}`
     }
     else if (type == "hourly")
     {
-        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=temperature,humidity,pressureSeaLevel,windSpeed,windDirection&timesteps=1h&units=imperial&timezone=America/Los_Angeles&apikey=ZdwyJ8FAyqyCIJgQijJoauA2IQZWlcw5`
+        url_to_tomorrowio = `https://api.tomorrow.io/v4/timelines?location=${latitude},${longitude}&fields=temperature,humidity,pressureSeaLevel,windSpeed,windDirection&timesteps=1h&units=imperial&timezone=America/Los_Angeles&apikey=${enviroment.tomorrowioApiKey}`
     }
     else
     {
